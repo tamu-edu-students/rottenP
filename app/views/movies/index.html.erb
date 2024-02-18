@@ -1,14 +1,35 @@
-<p style="color: green"><%= notice %></p>
-
 <h1>Movies</h1>
 
-<div id="movies">
-  <% @movies.each do |movie| %>
-    <%= render movie %>
-    <p>
-      <%= link_to "Show this movie", movie %>
-    </p>
-  <% end %>
-</div>
+<table>
+  <thead>
+    <tr>
+      <th class="<%= sort_column == 'title' ? sort_direction_class : '' %>" style="<%= sort_indicator_and_style('title').second %>">
+        <%= link_to "Title #{sort_indicator_and_style('title').first}", sort_movies_path(column: 'title'), class: sort_class('title') %>
+      </th>
+      <th class="<%= sort_column == 'rating' ? sort_direction_class : '' %>" style="<%= sort_indicator_and_style('rating').second %>">
+        <%= link_to "Rating #{sort_indicator_and_style('rating').first}", sort_movies_path(column: 'rating'), class: sort_class('rating') %>
+      </th>
+      <th class="<%= sort_column == 'release_date' ? sort_direction_class : '' %>" style="<%= sort_indicator_and_style('release_date').second %>">
+        <%= link_to "Release Date #{sort_indicator_and_style('release_date').first}", sort_movies_path(column: 'release_date'), class: sort_class('release_date') %>
+      </th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @movies.each do |movie| %>
+      <tr>
+        <td><%= movie.title %></td>
+        <td><%= movie.rating %></td>
+        <td><%= movie.release_date.strftime("%B %d, %Y") %></td>
+        <td><%= link_to "Show", movie %> | <%= link_to "Edit", edit_movie_path(movie) %> | <%= link_to "Delete", movie, method: :delete, data: { confirm: "Are you sure?" } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+
+
+
 
 <%= link_to "New movie", new_movie_path %>

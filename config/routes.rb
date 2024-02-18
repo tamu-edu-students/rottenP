@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
-  resources :movies
-  root :to => redirect('/movies')
+  resources :movies do
+    collection do
+      get 'sort'
+    end
+  end  
 end
