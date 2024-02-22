@@ -23,7 +23,7 @@
       <tr>
         <td><%= movie.title %></td>
         <td><%= movie.rating %></td>
-        <td><%= movie.release_date.strftime("%B %d, %Y") %></td>
+        <td><%= movie.release_date.try(:strftime, "%B %d, %Y") %></td>
         <td><%= link_to "Show", movie %> | <%= link_to "Edit", edit_movie_path(movie) %> | <%= link_to "Delete", movie, method: :delete, data: { confirm: "Are you sure?" } %></td>
       </tr>
     <% end %>
